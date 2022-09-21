@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{%load static%}
+
+{% block content %}
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">Create a Company</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="{%url 'home'%}">Home</a></li>
+                        <li class="breadcrumb-item active">Create Company</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+<section class="content">
+    <div class="container-fluid">
+        <!-- Info boxes -->
+        <div class="row">
+            <div class="col-12">
+                <div class="register-box m-auto">
+                    <div class="card">
+                        <div class="card-body register-card-body">
+                            <p class="login-box-msg">Create a new Company</p>
+
+                            <form  action="" method="post">
+                                {% if msg%}
+                            <p style="display:flex; justify-content:center; color:{{color}} ; ">{{msg}}</p><br />
+                        {%endif%}
+                                {%csrf_token%}
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control" name="companyName" placeholder="Company Name">
+                                    <div class="input-group-append">
+                                        <div class="input-group-text">
+                                            <span class="fas fa-building"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control" name="companyCEO" placeholder="Comapny CEO">
+                                    <div class="input-group-append">
+                                        <div class="input-group-text">
+                                            <span class="fas fa-user"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control" name="companyAddress" placeholder="Comapny Address">
+                                    <div class="input-group-append">
+                                        <div class="input-group-text">
+                                            <span class="fas fa-address-card"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="input-group mb-3">
+                                    <input type="date" class="form-control" name="inceptionDate" placeholder="Inception Date">
+                                    <div class="input-group-append">
+                                        <div class="input-group-text">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary btn-block">Create</button>
+                            </form>
+                        </div>
+                        <!-- /.form-box -->
+                    </div><!-- /.card -->
+                </div>
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!--/. container-fluid -->
+</section>
+</div>
+{% endblock%}

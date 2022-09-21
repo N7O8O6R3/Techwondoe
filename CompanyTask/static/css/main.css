@@ -1,0 +1,40 @@
+.fs-28{
+    font-size: 28px !important;
+}
+
+
+.small-box{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+.small-box .inner p{
+    margin-bottom: 0;
+}
+/* .text-ellipsis{
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+} */
+
+/* Table Css */
+table{
+    text-align: center !important
+}
+.custom-table{
+    border: 1px solid #fff ;
+}
+.custom-table thead{
+    background: rgb(95, 95, 95);
+}
+.custom-table thead th, .custom-table tbody td{
+    border: none !important;
+}
+.custom-table tbody td{
+    border: none !important;
+}
+.custom-table tbody tr:nth-child(even){
+    background: #cecece;
+    color: black;
+}

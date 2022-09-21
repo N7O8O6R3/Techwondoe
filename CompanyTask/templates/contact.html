@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+{%load static%}
+
+{% block content %}
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+      <!-- Content Header (Page header) -->
+      <div class="content-header">
+        <div class="container-fluid">
+          <div class="row mb-2">
+            <div class="col-sm-6">
+              <h1 class="m-0">Developer Details | Noor Hasan Shaik</h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+              <ol class="breadcrumb float-sm-right">
+                <li class="breadcrumb-item"><a href="{%url 'home' %}">Home</a></li>
+                <li class="breadcrumb-item active">Developer Details</li>
+              </ol>
+            </div><!-- /.col -->
+          </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+      </div>
+            <!-- /.content-header -->
+            <section class="content">
+                <div class="container-fluid">
+        
+                  <!-- Main row -->
+                  <div class="row">
+                    <!-- Left col -->
+                    <div class="col-12 h-100 d-flex align-items-center justify-content-center">
+                        
+                      <!-- TABLE:  -->
+                      <div class="card">
+                        <div class="card-header border-transparent">
+                          <h2 class="card-title"><b>Developer  Details</b></h2>
+        
+                          <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                              <i class="fas fa-minus"></i>
+                            </button>
+                            <button type="button" class="btn btn-tool" data-card-widget="remove">
+                              <i class="fas fa-times"></i>
+                            </button>
+                          </div>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body p-0">
+                          <div class="table-responsive">
+                            <table class="table m-0">
+                             <thead>
+                                <th colspan="2" style="text-align:center">
+                                    <div class="image" >
+                                        <img src="{%static 'images/developer.jpg'%}" class="img-circle elevation-2" alt="" width="210" height="210">
+                                      </div>
+                                </th>
+                             </thead>
+                              <tbody>
+                                <!-- First -->
+                                <tr>
+                                  <td> Name </td>
+                                  <td>Noor Hasan Shaik</td>
+                                </tr>
+                                <tr>
+                                  <td>Gmail</td>
+                                  <td>noorshaik.developer@gmail.com</td>
+                                </tr>
+                                <tr>
+                                  <td>Mobile </td>
+                                  <td>+91 8374558553</td>
+                                </tr>
+                                <tr>
+                                  <td>Resume </td>
+                                  <td class="project-actions">
+                                    <a class="btn btn-info btn-sm" target="_blank" href="https://drive.google.com/file/d/1r5x4pDcsGZAn4afVyurvMRKb-h2l0o7c/view?usp=sharing">
+                                      <i class="fas fa-pencil-alt">
+                                      </i>
+                                      View
+                                    </a></td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+        
+                  </div>
+                </div>
+                
+              </section>
+              
+     
+    </div>
+    
+  
+
+{% endblock %}
