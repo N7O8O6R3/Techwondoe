@@ -84,3 +84,5 @@ Round1 Assignment
 
 ### Here Initially I have developed mentioned 6 APIs( LoginAPIView, CreateCompany, CreateTeam, getCompanyAPI, getAllTeams, searchCompany_byName ) which are accessible using postman. Later I have developed another 8 APIs (login, home, create_comapny, getCompany, delete_team, logout, delete_company, contact) which are integrated with django templates. You can see all the apis in frontend. I have differentiated the POSTMAN apis and Template APIs in urls.py You can check it.
     
+
+## I have attached the Screenshots of WebApp Pages and POSTMAN Results. you can check in screenshots folder.
