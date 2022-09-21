@@ -8,10 +8,13 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from django.contrib.auth.models import User
-from rest_framework import serializers
+from django.core import serializers
 from rest_framework.views import APIView
 from rest_framework import generics, status, views, permissions
-from .serializers import LoginSerializer
+from .serializers import LoginSerializer,CreateCompanySerializer,CreateTeamSerializer
+import uuid
+import json
+from django.http.response import JsonResponse
 
 def login(request):
     if request.method == 'POST':
@@ -182,3 +185,88 @@ class LoginAPIView(generics.GenericAPIView):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         else:
             return Response({'data':data}, status=status.HTTP_200_OK)
+
+
+class CreateCompany(generics.GenericAPIView):
+    serializer_class = CreateCompanySerializer
+    permission_classes = ([IsAuthenticated])
+    # renderer_classes = (UserRenderer,)
+
+    def post(self, request):
+        user = request.data
+        print(user,request.user.email)
+        superuser = User.objects.get(email=request.user.email)
+        if superuser.is_superuser:
+            #company={'companyName':request.data['companyName'],'companyCEO':request.data['companyCEO'],'companyAddress':request.data['companyAddress'],'inceptionDate':request.data['inceptionDate']}
+            serializer = self.serializer_class(data=request.data)
+            serializer.is_valid(raise_exception=True)
+            serializer.save()
+            company_data = serializer.data
+            return Response(company_data, status=status.HTTP_201_CREATED)
+        return Response({'detail':"You don't have permission to perofrm this operation"}, status=status.HTTP_400_BAD_REQUEST)
+        
+class CreateTeam(generics.GenericAPIView):
+    # serializer_class = CreateTeamSerializer
+    permission_classes = ([IsAuthenticated])
+
+    def post(self,request,id):
+        print(request.data,id)
+        if 'teamLeadName' in request.data:
+            superuser=User.objects.get(email=request.user.email)
+            if superuser.is_superuser:
+                company=Company.objects.get(id=id)
+                print(company,company.companyName)
+                team=Team.objects.create(teamLeadName=request.data['teamLeadName'],companyID=company)
+                # team={'teamLeadName':request.data['teamLeadName'],'companyID':company}
+                print(team)
+                if team is not None:
+                    team.save()
+                obj=serializers.serialize('python', [team,])
+                #return JsonResponse(obj, safe=False)
+                return Response(obj, status=status.HTTP_201_CREATED)
+            return Response({'detail':"You don't have permission to perofrm this operation"}, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response({'detail':"Team Lead Name is required"},status=status.HTTP_400_BAD_REQUEST)
+
+class getCompanyAPI(generics.GenericAPIView):
+    permission_classes = ([IsAuthenticated])
+
+    def get(self,request,id):
+        superuser=User.objects.get(email=request.user.email)
+        if superuser.is_superuser:
+            company=Company.objects.get(id=id)
+            obj=serializers.serialize('python', [company,])
+            #return JsonResponse(obj, safe=False)
+            return Response(obj, status=status.HTTP_201_CREATED)
+        return Response({'detail':"You don't have permission to perofrm this operation"}, status=status.HTTP_400_BAD_REQUEST)
+
+class getAllTeams(generics.GenericAPIView):
+    permission_classes=([IsAuthenticated])
+
+    def get(self,request,id):
+        superuser=User.objects.get(email=request.user.email)
+        
+        if superuser.is_superuser:
+            company=Company.objects.get(id=id)
+            teams=Team.objects.filter(companyID=company.id)
+            # print(teams)
+            obj=serializers.serialize('python', teams)
+            #return JsonResponse(obj, safe=False)
+            return Response(obj, status=status.HTTP_200_OK)
+        return Response({'detail':"You don't have permission to perofrm this operation"}, status=status.HTTP_400_BAD_REQUEST)
+
+
+class searchCompany_byName(generics.GenericAPIView):
+    permission_classes=([IsAuthenticated])
+
+    def post(self,request):
+        superuser=User.objects.get(email=request.user.email)
+        if 'companyName' in request.data:
+            if superuser.is_superuser:
+                company=Company.objects.filter(companyName=request.data['companyName'])
+                obj=serializers.serialize('python', company)
+                #return JsonResponse(obj, safe=False)
+                return Response(obj, status=status.HTTP_200_OK)
+            return Response({'detail':"You don't have permission to perofrm this operation"}, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response({'detail':"Search Query companyName is required"},status=status.HTTP_400_BAD_REQUEST)
